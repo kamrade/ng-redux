@@ -11,9 +11,7 @@ import { INCREMENT } from "./actions";
 export class AppComponent {
   title = 'app';
   @select('counter') count;
-  @select(['messaging', 'newMessages']) newMessages;
-  @select((s: IAppState) => s.messaging.newMessages) newMessagesCount;
-
+  
   constructor(private ngRedux: NgRedux<IAppState>) {}
 
   increment() {
