@@ -1,4 +1,5 @@
 import { INCREMENT } from "./actions";
+import { tassign } from "tassign";
 
 export interface IAppState {
   counter: number;
@@ -14,7 +15,10 @@ export function rootReducer(state: IAppState, action): IAppState {
       /* return {
         counter: state.counter + 1
       } */
-      return Object.assign({}, state, {counter: state.counter + 1});
+      // return Object.assign({}, state, {counter: state.counter + 1});
+
+      // source object + mutations
+      return tassign(state, {counter: state.counter + 1});
   }
   return state;
 }
