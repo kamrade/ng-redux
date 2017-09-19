@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
-import { NgRedux, NgReduxModule} from "ng2-redux";
+import { NgRedux, NgReduxModule, DevToolsExtension } from "ng2-redux";
 import { IAppState, rootReducer, INITIAL_STATE } from "./store";
 
 @NgModule({
@@ -18,7 +18,8 @@ import { IAppState, rootReducer, INITIAL_STATE } from "./store";
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor( ngRedux: NgRedux<IAppState> ) {
-    ngRedux.configureStore(rootReducer, INITIAL_STATE);
+  constructor(ngRedux: NgRedux<IAppState>, devTools: DevToolsExtension) {
+    let enhancers = isDevMode() ? [devTools.enhancer()] : [];
+    ngRedux.configureStore(rootReducer, INITIAL_STATE, [], enhancers);
   }
 }
